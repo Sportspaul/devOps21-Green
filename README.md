@@ -1,3 +1,3 @@
 # devOps21-Green
 
-Oppgaver til DevOps-tracket i Sopra Steria høsten 21
+Oppgaver til DevOps-tracket i Sopra Steria høsten 2021
