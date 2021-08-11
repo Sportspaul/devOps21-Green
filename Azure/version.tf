@@ -6,4 +6,11 @@ terraform {
       version = "~> 2.71"
     }
   }
+  backend "remote" {
+    organization = "DevOps21_TeamGreen"
+    workspaces {
+      name = "DevOps21-Green"
+    }
+  }
+
 }
