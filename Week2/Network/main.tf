@@ -37,6 +37,18 @@ resource "azurerm_network_interface" "Sub1-interface" {
     name                          = "internal1"
     subnet_id                     = azurerm_subnet.Subnet1.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = azurerm_public_ip.pub-ip.id
+  }
+}
+
+resource "azurerm_public_ip" "pub-ip" {
+  name                = "pub-ip"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  allocation_method   = "Dynamic"
+
+  tags = {
+    environment = "Production"
   }
 }
 
