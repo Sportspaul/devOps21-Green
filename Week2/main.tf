@@ -6,11 +6,20 @@ module "rg" {
   source = "./Resource"
 }
 
-module "network" {
+module "network1" {
   source = "./Network"
 }
 
-module "vm" {
-  source = "./VM"
-}
+
+# module "network2" {
+#   source = "./Network/Network2"
+#   subnets = {
+
+#   }
+# }
+
+
+# module "vm" {
+#   source = "./VM"
+# }
 
