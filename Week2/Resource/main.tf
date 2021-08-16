@@ -3,6 +3,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "PhantomCloud-rg" {
-  name     = "PhantomCloud"
-  location = "norway east"
+  name     = "PhantomCloud1"
+  location = "west europe"
 }

@@ -4,10 +4,21 @@ variable "rg-name" {
   default     = "PhantomCloud"
 }
 
-# variable "subnets" {
-#   description = "object for subnets of the virtual network"
-#   type = map(object({
-#     name          = string
-#     address_space = list(string)
-#   }))
-# }
+variable "network_name" {
+  type        = string
+  description = "name for virtual network"
+}
+
+variable "address_space" {
+  type        = list(string)
+  description = "range for IPs"
+}
+
+variable "subnets" {
+  description = "object for subnets of the virtual network"
+  type = map(object({
+    name          = string
+    address_space = list(string)
+  }))
+}
+
