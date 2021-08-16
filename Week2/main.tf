@@ -3,14 +3,14 @@ provider "azurerm" {
 }
 
 module "rg" {
-    source = "./Resource"
+  source = "./Resource"
 }
 
 module "network" {
-    source = "./Network"
+  source = "./Network"
 }
 
 module "vm" {
-    source = "./VM"
+  source = "./VM"
 }
 
