@@ -1,0 +1,19 @@
+# Exclude .terraform directory
+**/.terraform/
+
+# Expclicitly exclude .tfstate
+# Denne velger dere selv om dere vil ha med eller ikke! Skal staten lastet opp eller ikke. Opp til dere å finne en løsning på dette. 
+*.tfstate
+**/*.backup
+
+# Artifacts from CI/CD
+**/plan.tfplan
+**/.dontapply.*.txt
+
+# vim
+**/.*.sw?
+**/*~
+
+# macOS custom attributes
+**/.DS_Store
+**/.terraform.lock.hcl
