@@ -7,16 +7,13 @@ module "rg" {
 }
 
 module "network1" {
-  source = "./Network"
+  source = "./Network1"
 }
 
 
-# module "network2" {
-#   source = "./Network/Network2"
-#   subnets = {
-
-#   }
-# }
+module "network2" {
+  source = "./Network2"
+}
 
 
 # module "vm" {

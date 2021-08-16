@@ -69,7 +69,7 @@ resource "azurerm_linux_virtual_machine" "VM1" {
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   size                = "Standard_F2"
-  admin_username      = "adminuser"
+  admin_username      = "vm1_admin"
   network_interface_ids = [
     azurerm_network_interface.Sub1-interface.id
   ]
@@ -79,10 +79,16 @@ resource "azurerm_linux_virtual_machine" "VM1" {
     storage_account_type = "Standard_LRS"
   }
   
-  admin_ssh_key {
-    username   = "adminuser"
-    public_key = file("id_rsa.pub")
-  }
+# os_profile {
+#     computer_name  = "vm1"
+#     admin_username = "vm1_admin"
+    
+#   }
+#   os_profile_linux_config {
+#   }
+
+  admin_password = "Password1234!"
+  disable_password_authentication = false
 
   source_image_reference {
     publisher = "Canonical"
