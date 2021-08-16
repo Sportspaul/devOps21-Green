@@ -37,12 +37,23 @@ resource "azurerm_network_interface" "Sub1-interface" {
     name                          = "internal1"
     subnet_id                     = azurerm_subnet.Subnet1.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.pub-ip.id
+    public_ip_address_id          = azurerm_public_ip.pub-ip1.id
   }
 }
 
-resource "azurerm_public_ip" "pub-ip" {
-  name                = "pub-ip"
+resource "azurerm_public_ip" "pub-ip1" {
+  name                = "pub-ip1"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  allocation_method   = "Dynamic"
+
+  tags = {
+    environment = "Production"
+  }
+}
+
+resource "azurerm_public_ip" "pub-ip2" {
+  name                = "pub-ip2"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
   allocation_method   = "Dynamic"
@@ -61,6 +72,7 @@ resource "azurerm_network_interface" "Sub2-interface" {
     name                          = "internal2"
     subnet_id                     = azurerm_subnet.Subnet2.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.pub-ip2.id
   }
 }
 
@@ -68,7 +80,7 @@ resource "azurerm_linux_virtual_machine" "VM1" {
   name                = "example-VM1"
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
-  size                = "Standard_F2"
+  size                = "Standard_B1ls"
   admin_username      = "vm1_admin"
   network_interface_ids = [
     azurerm_network_interface.Sub1-interface.id
@@ -78,16 +90,34 @@ resource "azurerm_linux_virtual_machine" "VM1" {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
-  
-# os_profile {
-#     computer_name  = "vm1"
-#     admin_username = "vm1_admin"
-    
-#   }
-#   os_profile_linux_config {
-#   }
 
-  admin_password = "Password1234!"
+  admin_password                  = "Password1234!"
+  disable_password_authentication = false
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "16.04-LTS"
+    version   = "latest"
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "VM2" {
+  name                = "example-VM2"
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  size                = "Standard_B1ls"
+  admin_username      = "vm2_admin"
+  network_interface_ids = [
+    azurerm_network_interface.Sub2-interface.id
+  ]
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  admin_password                  = "Password1234!"
   disable_password_authentication = false
 
   source_image_reference {
